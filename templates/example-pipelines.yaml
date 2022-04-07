@@ -1,0 +1,19 @@
+
+trigger: 
+- main
+
+resources:
+  repositories:
+  - repository: templates
+    type: github
+    name: CamiloLagos/AzureTemplates
+    endpoint: GitHubConnect
+
+variables:
+  - template: templates/vars.yaml@templates
+
+
+stages:
+  - template: templates/core-template.yaml@templates
+    parameters:
+      ProyectName: 'MyProyect'

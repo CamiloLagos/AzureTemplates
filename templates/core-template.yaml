@@ -1,0 +1,39 @@
+parameters:
+- name: 'ProyectName'
+  type: String
+  default: ''
+
+variables:
+- group: ConnectDb
+- name: tag
+  value: '0.0.$(Build.BuildId)'
+
+stages: 
+- stage: CI
+  displayName: Build
+  jobs:
+  - job: 
+    displayName: Build
+    pool: Default
+    steps:
+    - task: replacetokens@5
+      inputs:
+        rootDirectory: $(Build.sourcedirectory)
+        targetFiles: '**/*.properties'
+        encoding: 'auto'
+        tokenPattern: 'rm'
+        writeBOM: true
+        actionOnMissing: 'warn'
+        keepToken: false
+        actionOnNoFiles: 'continue'
+        enableTransforms: false
+        enableRecursion: false
+        useLegacyPattern: false
+        enableTelemetry: true
+
+    - bash: |
+        cd $(Build.source.directory)
+        chmod +x gradlew
+        ./gradlew bootJar
+      displayName: Build project
+
