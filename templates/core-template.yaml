@@ -3,8 +3,7 @@ parameters:
   type: string
   default: ''
 
-variables:
-- group: ConnectDb
+
 
 stages: 
 - stage: CI
@@ -13,6 +12,8 @@ stages:
   - job: 
     displayName: Build
     pool: Default
+    variables:
+    - group: ConnectDb
     steps:
     - task: replacetokens@5
       inputs:
