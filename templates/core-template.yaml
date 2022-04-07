@@ -35,13 +35,26 @@ stages:
         chmod +x gradlew
         ./gradlew bootJar
       displayName: Build project
+  
+  - job:
+    displayName: Test
+    pool: Default
+    steps:
+      - bash: |
+          cd $(Build.SourcesDirectory)
+          ls
 
-    - task: Docker@2
-      displayName: Build Docker image
-      inputs:
-        containerRegistry: 'MyConnect'
-        repository: 'camilolagos/cliente-service'
-        command: 'buildAndPush'
-        Dockerfile: '**/Dockerfile'
-        tags: '$(tag)'
+  - job:
+    displayName: Package
+    pool: Default
+    steps:
+      - task: Docker@2
+        displayName: Build and Push Docker image
+        inputs:
+          containerRegistry: 'MyConnect'
+          repository: 'camilolagos/cliente-service'
+          command: 'buildAndPush'
+          Dockerfile: '**/Dockerfile'
+          tags: '$(tag)'
+    
 
