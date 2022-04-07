@@ -8,12 +8,14 @@ parameters:
 stages: 
 - stage: CI
   displayName: Build
+  variables:
+    - group: ConnectDb
+    - name: tag
+      value: '0.0.$(Build.BuildId)'
+  pool: Default
   jobs:
   - job: 
-    displayName: Build
-    pool: Default
-    variables:
-    - group: ConnectDb
+    displayName: Build  
     steps:
     - task: replacetokens@5
       inputs:
@@ -38,7 +40,6 @@ stages:
   
   - job:
     displayName: Test
-    pool: Default
     steps:
       - bash: |
           cd $(Build.SourcesDirectory)
@@ -46,7 +47,6 @@ stages:
 
   - job:
     displayName: Package
-    pool: Default
     steps:
       - task: Docker@2
         displayName: Build and Push Docker image
