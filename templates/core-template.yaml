@@ -17,7 +17,7 @@ stages:
     steps:
     - task: replacetokens@5
       inputs:
-        rootDirectory: $(Build.sourcedirectory)
+        rootDirectory: $(Build.SourcesDirectory)
         targetFiles: '**/*.properties'
         encoding: 'auto'
         tokenPattern: 'rm'
@@ -31,7 +31,7 @@ stages:
         enableTelemetry: true
 
     - bash: |
-        cd $(Build.source.directory)
+        cd $(Build.SourcesDirectory)
         chmod +x gradlew
         ./gradlew bootJar
       displayName: Build project
