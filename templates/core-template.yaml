@@ -48,6 +48,9 @@ stages:
 
   - job:
     displayName: Package
+    dependsOn: 
+      - Test
+      - Build
     steps:
       - checkout: none
       - task: Docker@2
