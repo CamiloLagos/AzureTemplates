@@ -14,7 +14,7 @@ stages:
       value: '0.0.$(Build.BuildId)'
   pool: Default
   jobs:
-  - job: 
+  - job: Build
     displayName: Build  
     steps:
     - task: replacetokens@5
@@ -38,7 +38,7 @@ stages:
         ./gradlew bootJar
       displayName: Build project
   
-  - job:
+  - job: Test
     displayName: Test
     steps:
       - checkout: none
@@ -46,7 +46,7 @@ stages:
           cd $(Build.SourcesDirectory)
           ls
 
-  - job:
+  - job: Package
     displayName: Package
     dependsOn: 
       - Test
