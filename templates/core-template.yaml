@@ -1,12 +1,10 @@
 parameters:
 - name: 'ProyectName'
-  type: String
+  type: string
   default: ''
 
 variables:
 - group: ConnectDb
-- name: tag
-  value: '0.0.$(Build.BuildId)'
 
 stages: 
 - stage: CI
