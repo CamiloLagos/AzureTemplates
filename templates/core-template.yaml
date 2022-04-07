@@ -41,6 +41,7 @@ stages:
   - job:
     displayName: Test
     steps:
+      - checkout: none
       - bash: |
           cd $(Build.SourcesDirectory)
           ls
@@ -48,6 +49,7 @@ stages:
   - job:
     displayName: Package
     steps:
+      - checkout: none
       - task: Docker@2
         displayName: Build and Push Docker image
         inputs:
